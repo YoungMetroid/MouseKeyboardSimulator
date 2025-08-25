@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MouseKeyBoardSimulation.Models;
+using MouseKeyBoardSimulation.Presenter;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,7 +18,11 @@ namespace MouseKeyBoardSimulation
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+
+            var view = new MouseKeyBoardForm();
+            var service = new MouseKeyboardService();
+            var presenter = new MouseKeyBoardPresenter(view, service);
+            Application.Run(view as Form);
         }
     }
 }

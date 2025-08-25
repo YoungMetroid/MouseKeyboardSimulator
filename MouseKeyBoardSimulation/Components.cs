@@ -23,15 +23,18 @@ namespace MouseKeyBoardSimulation
             };
             return box;
         }
-        public static Button CreateButton(Point location)
+        public static Button CreateButton(string placeholder,Point location, EventHandler eventHandler)
         {
             var button = new Button
             {
                 Location = location
+                ,Text = placeholder
                
             };
+            button.Click += eventHandler;
             return button; 
         }
+       
 
     }
 }

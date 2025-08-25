@@ -47,11 +47,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Components.cs" />
-    <Compile Include="Form1.cs">
+    <Compile Include="Models\IMouseKeyboardService.cs" />
+    <Compile Include="Models\MouseKeyboardService.cs" />
+    <Compile Include="Presenters\MouseKeyBoardPresenter.cs" />
+    <Compile Include="Views\IMouseKeyboardView.cs" />
+    <Compile Include="Views\MouseKeyBoardForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Views\MouseKeyBoardForm.Designer.cs">
+      <DependentUpon>MouseKeyBoardForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -77,5 +81,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
