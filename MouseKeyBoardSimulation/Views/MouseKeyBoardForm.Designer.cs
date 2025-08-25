@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Drawing;
+using System.IO;
+using System.Reflection;
 using System.Windows.Forms;
 
 namespace MouseKeyBoardSimulation
@@ -53,8 +55,11 @@ namespace MouseKeyBoardSimulation
             this.Controls.Add(_stopButton);
             this.components = new System.ComponentModel.Container();
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "Form1";   
+            this.ClientSize = new System.Drawing.Size(550, 430);
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.Icon = Properties.Resources.keyboardmouse_icon;
+            this.Text = "MouseKeyBoardUtility";   
         }
     }
 }
