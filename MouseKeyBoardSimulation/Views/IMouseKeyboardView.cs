@@ -10,8 +10,10 @@ namespace MouseKeyBoardSimulation.Views
     internal interface IMouseKeyboardView
     {
         string InputText { get; }
-        event EventHandler StartKeyBoardMouseSimulation;
-        event EventHandler StopKeyBoardMouseSimulation;
+        string SimulationOption { get; }
+        event EventHandler StartSimulation;
+        event EventHandler StopSimulation;
+        event EventHandler SetSimulation;
         Control GetControl(string name);
     }
 }

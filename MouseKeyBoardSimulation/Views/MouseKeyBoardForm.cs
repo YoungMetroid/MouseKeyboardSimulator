@@ -15,14 +15,16 @@ namespace MouseKeyBoardSimulation
     public partial class MouseKeyBoardForm : Form, IMouseKeyboardView
     {
         public string InputText => _userInputTextBox.Text;
-
-        public event EventHandler StartKeyBoardMouseSimulation;
-        public event EventHandler StopKeyBoardMouseSimulation;
+        public string SimulationOption => _simulationSelector.SelectedItem as string;
+        public event EventHandler StartSimulation;
+        public event EventHandler StopSimulation;
+        public event EventHandler SetSimulation;
         public MouseKeyBoardForm()
         {
             InitializeComponent();
-            _startButton.Click +=(s,e)=> StartKeyBoardMouseSimulation?.Invoke(this,EventArgs.Empty);
-            _stopButton.Click +=(s,e)=> StopKeyBoardMouseSimulation?.Invoke(this, EventArgs.Empty); ;
+            _startButton.Click +=(s,e)=> StartSimulation?.Invoke(this,EventArgs.Empty);
+            _stopButton.Click +=(s,e)=> StopSimulation?.Invoke(this, EventArgs.Empty);
+            _simulationSelector.SelectedIndexChanged += (s, e) => SetSimulation?.Invoke(this, EventArgs.Empty);
         }
         public Control GetControl(string name)
         {

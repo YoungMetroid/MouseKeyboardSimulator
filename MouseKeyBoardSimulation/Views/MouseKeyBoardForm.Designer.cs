@@ -12,6 +12,7 @@ namespace MouseKeyBoardSimulation
         private TextBox _keyboardSimulationTextBox;
         private Button _startButton;
         private Button _stopButton;
+        private ComboBox _simulationSelector;
        
         private System.ComponentModel.IContainer components = null;
         protected override void Dispose(bool disposing)
@@ -47,12 +48,23 @@ namespace MouseKeyBoardSimulation
             _stopButton = new Button();
             _stopButton.Location = new Point(440, 200);
             _stopButton.Text = "Stop";
-           
+
+            _simulationSelector = new ComboBox();
+            _simulationSelector.Location = new Point(420, 20);
+            _simulationSelector.Items.AddRange(new object[] {
+                "Move Mouse"
+                ,"KeyStrokes"
+                ,"Register Clicks"
+                ,"Simulate Human"
+            });
+            _simulationSelector.SelectedIndex = 0;
+
 
             this.Controls.Add(_userInputTextBox);
             this.Controls.Add(_keyboardSimulationTextBox);
             this.Controls.Add(_startButton);
             this.Controls.Add(_stopButton);
+            this.Controls.Add(_simulationSelector);
             this.components = new System.ComponentModel.Container();
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(550, 430);

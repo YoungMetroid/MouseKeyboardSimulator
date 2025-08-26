@@ -6,12 +6,9 @@ using System.Threading.Tasks;
 
 namespace MouseKeyBoardSimulation.Models
 {
-    internal interface IMouseKeyboardService
+    public interface IMouseKeyboardService
     {
-        void StartKeyboardSimulation(string text);
-        void StartMouseSimulation();
-        void StopKeyboardSimulation();
-        void StopMouseSimulation();
-
+        void StartSimulation();
+        void StopSimulation(); 
     }
 }

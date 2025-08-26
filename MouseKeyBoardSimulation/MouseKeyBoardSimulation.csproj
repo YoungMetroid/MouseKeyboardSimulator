@@ -80,8 +80,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Domain\MouseMode.cs" />
     <Compile Include="Models\IMouseKeyboardService.cs" />
-    <Compile Include="Models\MouseKeyboardService.cs" />
+    <Compile Include="Models\KeyBoardService.cs" />
+    <Compile Include="Domain\MouseHook.cs" />
+    <Compile Include="Models\MouseService.cs" />
     <Compile Include="Presenters\MouseKeyBoardPresenter.cs" />
     <Compile Include="Views\IMouseKeyboardView.cs" />
     <Compile Include="Views\MouseKeyBoardForm.cs">
