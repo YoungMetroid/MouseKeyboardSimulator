@@ -20,7 +20,6 @@ namespace MouseKeyBoardSimulation.Presenter
             _services = services;
             _view.StartSimulation += StartRequested;
             _view.StopSimulation += StopRequested;
-            
             _selectedOption = _view.SimulationOption;
         }
 
@@ -30,13 +29,28 @@ namespace MouseKeyBoardSimulation.Presenter
             _selectedOption = _view.SimulationOption;
             if (_selectedOption.Equals("RegisterClicks"))
             {
-                _service = _services.TryGetValue("keyBoardService", out var service)?service: null;
-                _service.
+                _service = _services.TryGetValue("mouseService", out var service)?service: null;
+                MouseService mouseService = _service as MouseService;
+                mouseService.SetMouseMode(MouseMode.registerMode);
             }
-            var inputBox = _view.GetControl("KeyBoardSimulationTextBox") as System.Windows.Forms.TextBox;
-            inputBox?.Focus();
-            //var text = _view.InputText;
-            //_service.StartSimulation();
+            else if(_selectedOption.Equals("Move Mouse"))
+            {
+                _service = _services.TryGetValue("mouseService", out var service) ? service : null;
+                MouseService mouseService = _service as MouseService;
+                mouseService.SetMouseMode(MouseMode.moveMode);
+            }
+            else if (_selectedOption.Equals("KeyStrokes")){
+                _service = _services.TryGetValue("keyBoardService", out var service) ? service : null;
+                KeyBoardService keyboardService = _service as KeyBoardService;
+                keyboardService.SetText(_view.InputText);
+                var inputBox = _view.GetControl("KeyBoardSimulationTextBox") as System.Windows.Forms.TextBox;
+                inputBox?.Focus();
+            }
+            else if(_selectedOption.Equals("Simulate Human"))
+            {
+
+            }
+            _service.StartSimulation();
         }
         private void StopRequested(object sender, EventArgs e)
         {

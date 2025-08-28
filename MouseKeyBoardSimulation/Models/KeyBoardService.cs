@@ -9,7 +9,7 @@ using Timer = System.Windows.Forms.Timer;
 
 namespace MouseKeyBoardSimulation.Models
 {
-    internal class KeyBoardService
+    internal class KeyBoardService : IMouseKeyboardService
     {
         [DllImport("user32.dll")]
         private static extern short VkKeyScan(char ch);
@@ -37,21 +37,25 @@ namespace MouseKeyBoardSimulation.Models
             SendChar(_text.ElementAt(_textIndex));
             _textIndex++;
         }
-        internal KeyBoardService(string text)
+        internal KeyBoardService()
         {
-            _text = text;
             _timer = new Timer();
         }
 
-        internal void StartSimulation()
+        public void StartSimulation()
         {
             _timer.Interval = Delay;
             _timer.Tick += TypeKey;
             _timer.Start();
         }
-        internal void StopSimulation()
+        public void StopSimulation()
         {
             _timer.Stop();
+            _timer.Tick -= TypeKey;
+        }
+        internal void SetText(string text)
+        {
+            _text = text;
         }
     }
 }

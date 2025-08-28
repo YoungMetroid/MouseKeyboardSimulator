@@ -30,13 +30,20 @@ namespace MouseKeyBoardSimulation.Models
 
         public void StartSimulation()
         {
+            _timer = new Timer();
             if (mode == MouseMode.registerMode)
             {
                 SetPoint();
             }
+            else if(mode == MouseMode.clickMode)
+            {
+                
+                _timer.Interval = Delay;
+                _timer.Tick += ClickMouse;
+                _timer.Start();
+            }
             else
             {
-                _timer = new Timer();
                 _timer.Interval = Delay;
                 _timer.Tick += MoveMouse;
                 _timer.Start();
@@ -44,6 +51,7 @@ namespace MouseKeyBoardSimulation.Models
         }
         public void SetPoint()
         {
+            Console.WriteLine("Saving Mouse Cordinates");
 
         }
         public void StopSimulation() 
@@ -74,6 +82,10 @@ namespace MouseKeyBoardSimulation.Models
                     _left = true;
                 }
             }
+        }
+        private void ClickMouse(object sender, EventArgs e)
+        {
+            Console.WriteLine("Clicking Mouse");
         }
 
     }

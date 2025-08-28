@@ -20,7 +20,7 @@ namespace MouseKeyBoardSimulation
             Application.SetCompatibleTextRenderingDefault(false);
 
             var view = new MouseKeyBoardForm();
-            var keyBoardService  = new KeyBoardService("");
+            var keyBoardService  = new KeyBoardService();
             var mouseService = new MouseService();
             var serviceDictionary = new Dictionary<string, IMouseKeyboardService> { 
                 { "keyBoardService",keyBoardService as IMouseKeyboardService}, 
