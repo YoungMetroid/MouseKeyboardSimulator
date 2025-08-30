@@ -10,10 +10,13 @@ namespace MouseKeyBoardSimulation
     {
         private TextBox _userInputTextBox;
         private TextBox _keyboardSimulationTextBox;
+        private NumericUpDown _clickLimitNumericUpDown;
         private Button _startButton;
         private Button _stopButton;
         private ComboBox _simulationSelector;
-       
+
+        private const int MaxClickLimit = 10;
+        private const int MinClickLimit = 3;
         private System.ComponentModel.IContainer components = null;
         protected override void Dispose(bool disposing)
         {
@@ -41,6 +44,15 @@ namespace MouseKeyBoardSimulation
             _keyboardSimulationTextBox.ScrollBars = ScrollBars.Vertical;
             _keyboardSimulationTextBox.Text = "Simulated Key Presses will appear here";
 
+            _clickLimitNumericUpDown = new NumericUpDown();
+            _clickLimitNumericUpDown.Name = "ClickLimitTextBox";
+            _clickLimitNumericUpDown.Location = new Point(420, 300);
+            _clickLimitNumericUpDown.Maximum = MaxClickLimit;
+
+            //This is the default value
+            _clickLimitNumericUpDown.Minimum = MinClickLimit;
+
+
             _startButton = new Button();
             _startButton.Location = new Point(440, 100);
             _startButton.Text = "Start";
@@ -65,6 +77,7 @@ namespace MouseKeyBoardSimulation
             this.Controls.Add(_startButton);
             this.Controls.Add(_stopButton);
             this.Controls.Add(_simulationSelector);
+            this.Controls.Add(_clickLimitNumericUpDown);
             this.components = new System.ComponentModel.Container();
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(550, 430);

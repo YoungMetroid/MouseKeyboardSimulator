@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using Timer = System.Windows.Forms.Timer;
 
 namespace MouseKeyBoardSimulation.Models
@@ -13,29 +15,40 @@ namespace MouseKeyBoardSimulation.Models
         [DllImport("user32.dll")]
         public static extern void mouse_event(uint dwFlags, uint dx, uint dy, uint cButtons, uint dwExtraInfo);
         private const uint MOUSEEVENTF_MOVE = 0x0001;
+        private const int Delay = 1000;
         private int _fiftyPixel = 50;
         private int _pixelMoveCount = 0;
+        private int _maxClicks = 3;
         private bool _left = true;
+        private List<Point> _mouseCordinates;
+        private MouseMode _mode;
         private Timer _timer;
-        private const int Delay = 1000;
-        private MouseMode mode;
+        private MouseHook _mh;
+        
+
 
         internal MouseService(MouseMode mode = 0) {
-            this.mode = mode;
+            this._mode = mode;
+            _mh = new MouseHook();
+            _mouseCordinates = new List<Point>();
+            _mh.MouseUpEvent += MouseUpEvent;
         }
         public void SetMouseMode(MouseMode mode)
         {
-            this.mode = mode;
+            this._mode = mode;
+        }
+        public void SetClickLimit(int maxClicks)
+        {
+            _maxClicks = maxClicks;
         }
 
         public void StartSimulation()
         {
             _timer = new Timer();
-            if (mode == MouseMode.registerMode)
+            if (_mode == MouseMode.registerMode)
             {
-                SetPoint();
             }
-            else if(mode == MouseMode.clickMode)
+            else if(_mode == MouseMode.clickMode)
             {
                 
                 _timer.Interval = Delay;
@@ -49,9 +62,9 @@ namespace MouseKeyBoardSimulation.Models
                 _timer.Start();
             }
         }
-        public void SetPoint()
+        public void SetClickPoint(object sender, EventArgs e)
         {
-            Console.WriteLine("Saving Mouse Cordinates");
+           
 
         }
         public void StopSimulation() 
@@ -86,6 +99,15 @@ namespace MouseKeyBoardSimulation.Models
         private void ClickMouse(object sender, EventArgs e)
         {
             Console.WriteLine("Clicking Mouse");
+        }
+        private void MouseUpEvent(object sender, MouseEventArgs e)
+        {
+            if (_mode != MouseMode.registerMode) return;
+
+            if(e.Button == MouseButtons.Left)
+            {
+                _mouseCordinates.Add(new Point(e.Location.X, e.Location.Y));
+            }
         }
 
     }
