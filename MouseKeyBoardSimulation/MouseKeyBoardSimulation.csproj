@@ -55,10 +55,10 @@
     <ApplicationIcon>Resources\keyboardmouse_icon.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>BA250EBC552E679654EC92785310BF2A0B48A15D</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>3FF982CB73C4697491B04A275177368A0D094B2C</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>MouseKeyBoardSimulation_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>MouseKeyBoardSimulation_1_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <GenerateManifests>true</GenerateManifests>
@@ -105,6 +105,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="MouseKeyBoardSimulation_1_TemporaryKey.pfx" />
     <None Include="MouseKeyBoardSimulation_TemporaryKey.pfx" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

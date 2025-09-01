@@ -11,9 +11,9 @@ namespace MouseKeyBoardSimulation.Views
     {
         string InputText { get; }
         string SimulationOption { get; }
+        int MaxClicks { get; }
         event EventHandler StartSimulation;
         event EventHandler StopSimulation;
-        event EventHandler SetSimulation;
         Control GetControl(string name);
     }
 }

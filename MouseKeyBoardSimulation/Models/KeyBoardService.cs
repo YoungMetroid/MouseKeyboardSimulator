@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using static System.Net.Mime.MediaTypeNames;
 using Timer = System.Windows.Forms.Timer;
 
@@ -44,6 +45,10 @@ namespace MouseKeyBoardSimulation.Models
 
         public void StartSimulation()
         {
+            if(string.IsNullOrEmpty(_text)){
+                MessageBox.Show("The User textbox cannot be empty please fill it with text");
+                return;
+            }
             _timer.Interval = Delay;
             _timer.Tick += TypeKey;
             _timer.Start();

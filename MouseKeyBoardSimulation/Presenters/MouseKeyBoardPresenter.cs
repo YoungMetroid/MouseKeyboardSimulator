@@ -22,16 +22,15 @@ namespace MouseKeyBoardSimulation.Presenter
             _view.StopSimulation += StopRequested;
             _selectedOption = _view.SimulationOption;
         }
-
-       
         private void StartRequested(object sender, EventArgs e)
         {
             _selectedOption = _view.SimulationOption;
-            if (_selectedOption.Equals("RegisterClicks"))
+            if (_selectedOption.Equals("Register Clicks"))
             {
                 _service = _services.TryGetValue("mouseService", out var service)?service: null;
                 MouseService mouseService = _service as MouseService;
                 mouseService.SetMouseMode(MouseMode.registerMode);
+                mouseService.SetClickLimit(_view.MaxClicks);
             }
             else if(_selectedOption.Equals("Move Mouse"))
             {

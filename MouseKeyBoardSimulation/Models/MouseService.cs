@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Timer = System.Windows.Forms.Timer;
 
+
 namespace MouseKeyBoardSimulation.Models
 {
     internal class MouseService:IMouseKeyboardService
@@ -16,6 +17,7 @@ namespace MouseKeyBoardSimulation.Models
         public static extern void mouse_event(uint dwFlags, uint dx, uint dy, uint cButtons, uint dwExtraInfo);
         private const uint MOUSEEVENTF_MOVE = 0x0001;
         private const int Delay = 1000;
+        private const int MAXCLICKS = 10;
         private int _fiftyPixel = 50;
         private int _pixelMoveCount = 0;
         private int _maxClicks = 3;
@@ -24,14 +26,15 @@ namespace MouseKeyBoardSimulation.Models
         private MouseMode _mode;
         private Timer _timer;
         private MouseHook _mh;
-        
-
-
-        internal MouseService(MouseMode mode = 0) {
+        public MouseService(MouseMode mode = 0) {
             this._mode = mode;
             _mh = new MouseHook();
-            _mouseCordinates = new List<Point>();
+            _mh.SetHook();
+            _mh.MouseMoveEvent += MouseMoveEvent;
+            _mh.MouseClickEvent += MouseClickEvent;
+            _mh.MouseDownEvent += MouseDownEvent;
             _mh.MouseUpEvent += MouseUpEvent;
+            _mouseCordinates = new List<Point>();
         }
         public void SetMouseMode(MouseMode mode)
         {
@@ -39,7 +42,7 @@ namespace MouseKeyBoardSimulation.Models
         }
         public void SetClickLimit(int maxClicks)
         {
-            _maxClicks = maxClicks;
+            this._maxClicks = maxClicks;
         }
 
         public void StartSimulation()
@@ -47,6 +50,9 @@ namespace MouseKeyBoardSimulation.Models
             _timer = new Timer();
             if (_mode == MouseMode.registerMode)
             {
+                _timer.Interval = Delay;
+                _timer.Tick += SetClickPoint;
+                _timer.Start();
             }
             else if(_mode == MouseMode.clickMode)
             {
@@ -100,13 +106,32 @@ namespace MouseKeyBoardSimulation.Models
         {
             Console.WriteLine("Clicking Mouse");
         }
+        private void MouseMoveEvent(object sender, MouseEventArgs e)
+        {
+        }
+        private void MouseClickEvent(object sender, MouseEventArgs e)
+        {
+
+        }
+        private void MouseDownEvent(object sender, MouseEventArgs e)
+        {
+
+        }
         private void MouseUpEvent(object sender, MouseEventArgs e)
         {
+         
+            Console.WriteLine("MH event");
+            
             if (_mode != MouseMode.registerMode) return;
-
-            if(e.Button == MouseButtons.Left)
+            if(e.Button == MouseButtons.Left && _mouseCordinates.Count < _maxClicks)
             {
                 _mouseCordinates.Add(new Point(e.Location.X, e.Location.Y));
+            }
+            else if(_mouseCordinates.Count >= _maxClicks)
+            {
+                MessageBox.Show(_mouseCordinates.Count +" clicks have been saved and " 
+                    + "thats the limit you set or you've reached the max limit of "
+                    + MAXCLICKS);
             }
         }
 
