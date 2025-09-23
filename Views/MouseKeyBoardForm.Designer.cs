@@ -13,10 +13,11 @@ namespace MouseKeyBoardSimulation
         private NumericUpDown _clickLimitNumericUpDown;
         private Button _startButton;
         private Button _stopButton;
+        private Button _recordButton;
         private ComboBox _simulationSelector;
-
         private const int MaxClickLimit = 10;
         private const int MinClickLimit = 3;
+
         private System.ComponentModel.IContainer components = null;
         protected override void Dispose(bool disposing)
         {
@@ -46,45 +47,51 @@ namespace MouseKeyBoardSimulation
 
             _clickLimitNumericUpDown = new NumericUpDown();
             _clickLimitNumericUpDown.Name = "ClickLimitTextBox";
-            _clickLimitNumericUpDown.Location = new Point(420, 300);
-            _clickLimitNumericUpDown.Maximum = MaxClickLimit;
-
-            //This is the default value
-            _clickLimitNumericUpDown.Minimum = MinClickLimit;
-
-
+            _clickLimitNumericUpDown.Location = new Point(420, 400);
+            
             _startButton = new Button();
-            _startButton.Location = new Point(440, 100);
+            _startButton.Location = new Point(420, 100);
             _startButton.Text = "Start";
-
             _stopButton = new Button();
-            _stopButton.Location = new Point(440, 200);
+            var size = _startButton.Size;
+            _stopButton.Location = new Point(420+size.Width, 100);
             _stopButton.Text = "Stop";
+
+            _recordButton = new Button();
+            _recordButton.Name = "Record";
+            _recordButton.Location = new Point(440, 200);
 
             _simulationSelector = new ComboBox();
             _simulationSelector.Location = new Point(420, 20);
             _simulationSelector.Items.AddRange(new object[] {
-                "Move Mouse"
-                ,"KeyStrokes"
-                ,"Register Clicks"
-                ,"Simulate Human"
+                "StaticMousMove"
+                ,"StaticKeyStrokes"
+                ,"Mouse"
+                ,"Mouse And Keyboard"
             });
             _simulationSelector.SelectedIndex = 0;
-
 
             this.Controls.Add(_userInputTextBox);
             this.Controls.Add(_keyboardSimulationTextBox);
             this.Controls.Add(_startButton);
             this.Controls.Add(_stopButton);
+            this.Controls.Add(_recordButton);
             this.Controls.Add(_simulationSelector);
             this.Controls.Add(_clickLimitNumericUpDown);
             this.components = new System.ComponentModel.Container();
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(550, 430);
+            this.ClientSize = new System.Drawing.Size(600, 430);
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Icon = Properties.Resources.keyboardmouse_icon;
-            this.Text = "MouseKeyBoardUtility";   
+            this.Text = "MouseKeyBoardSimulation";
+            this.Load += new System.EventHandler(this.LoadValues);
+
+        }
+        private void LoadValues(object sender, EventArgs e)
+        {
+            _clickLimitNumericUpDown.Maximum = MaxClickLimit;            
+            _clickLimitNumericUpDown.Minimum = MinClickLimit;
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MouseKeyBoardSimulation.Domain;
+using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -24,6 +26,7 @@ namespace MouseKeyBoardSimulation.Models
         private const int Delay = 1000;
         private int _textIndex = 0;
         private string _text;
+        ConcurrentQueue<MouseKeyboardEvent> _keyboardEvent;
         private void SendChar(char c)
         {
             short vk = VkKeyScan(c);
@@ -38,8 +41,9 @@ namespace MouseKeyBoardSimulation.Models
             SendChar(_text.ElementAt(_textIndex));
             _textIndex++;
         }
-        internal KeyBoardService()
+        public KeyBoardService(ConcurrentQueue<MouseKeyboardEvent> _keyboardEvent)
         {
+            this._keyboardEvent = _keyboardEvent;
             _timer = new Timer();
         }
 
@@ -57,6 +61,10 @@ namespace MouseKeyBoardSimulation.Models
         {
             _timer.Stop();
             _timer.Tick -= TypeKey;
+        }
+        public void RecordSimulation()
+        {
+
         }
         internal void SetText(string text)
         {

@@ -9,6 +9,7 @@ namespace MouseKeyBoardSimulation.Models
     public interface IMouseKeyboardService
     {
         void StartSimulation();
-        void StopSimulation(); 
+        void StopSimulation();
+        void RecordSimulation();
     }
 }

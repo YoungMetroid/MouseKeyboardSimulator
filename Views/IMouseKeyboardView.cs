@@ -14,6 +14,7 @@ namespace MouseKeyBoardSimulation.Views
         int MaxClicks { get; }
         event EventHandler StartSimulation;
         event EventHandler StopSimulation;
+        event EventHandler RecordSimulation;
         Control GetControl(string name);
     }
 }
