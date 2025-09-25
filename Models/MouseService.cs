@@ -34,7 +34,7 @@ namespace MouseKeyBoardSimulation.Models
         private int _previousX;
         private int _previousY;
         private bool _left = true;
-        private bool recordOn = false;
+        private bool _recordOn = false;
         private List<Point> _mouseCordinates;
         private MouseMode _mode;
         private Timer _timer;
@@ -87,14 +87,17 @@ namespace MouseKeyBoardSimulation.Models
         }
        
         public void StopSimulation() 
-        { 
+        {
+            _mouseEvent.Clear();
+            _mouseEventList.Clear();
+            _recordOn = false;
             _timer.Stop();
             _timer.Dispose();
 
         }
         public void RecordMouse()
         {
-            if (recordOn && _mouseEvent.Count >1)
+            if (_recordOn && _mouseEvent.Count >1)
             {
                 _mouseEventList = _mouseEvent.ToList();
                 MouseKeyboardEvent mouseEvent = _mouseEventList.ElementAt(0);
@@ -105,7 +108,7 @@ namespace MouseKeyBoardSimulation.Models
                 _previousX = mouseEvent.mouseArgs.Location.X;
                 _previousY = mouseEvent.mouseArgs.Location.Y;
             }
-            recordOn = !recordOn;
+            _recordOn = !_recordOn;
         }
         private void MoveMouse(object sender, EventArgs e)
         {
@@ -179,7 +182,7 @@ namespace MouseKeyBoardSimulation.Models
         }
         private void MouseMoveEvent(object sender, MouseEventArgs e)
         {
-            if (recordOn)
+            if (_recordOn)
             {
                 _mouseEvent.Enqueue(new MouseKeyboardEvent(e, MouseEvent.move, DateTime.Now));
                 Debug.WriteLine(_mouseEvent.Count);
@@ -195,7 +198,7 @@ namespace MouseKeyBoardSimulation.Models
         }
         private void MouseUpEvent(object sender, MouseEventArgs e)
         { 
-            if(_mode != MouseMode.recordMode && !recordOn) return;
+            if(_mode != MouseMode.recordMode && !_recordOn) return;
             if(e.Button == MouseButtons.Left)
             {
                 Debug.WriteLine("Saving a click");

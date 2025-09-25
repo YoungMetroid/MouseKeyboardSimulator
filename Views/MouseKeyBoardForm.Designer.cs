@@ -52,14 +52,14 @@ namespace MouseKeyBoardSimulation
             _startButton = new Button();
             _startButton.Location = new Point(420, 100);
             _startButton.Text = "Start";
-            _stopButton = new Button();
             var size = _startButton.Size;
+            _stopButton = new Button();
             _stopButton.Location = new Point(420+size.Width, 100);
             _stopButton.Text = "Stop";
 
             _recordButton = new Button();
-            _recordButton.Name = "Record";
-            _recordButton.Location = new Point(440, 200);
+            _recordButton.Text = "Record";
+            _recordButton.Location = new Point(420+(size.Width/2), 100+size.Height);
 
             _simulationSelector = new ComboBox();
             _simulationSelector.Location = new Point(420, 20);
